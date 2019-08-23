@@ -13,4 +13,5 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
+测试账户：（1）用户名：xiaozhupeiqi  密码：123  （2）用户名：baba 密码：123
 修改头像时，需要将 “src\store\index.js”的第52行path改为自己本地的路径。
