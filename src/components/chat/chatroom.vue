@@ -88,11 +88,15 @@ export default {
       imgurl: '',
       chatroom_list: [],
       wsData: '',
-      websocket: null
+      websocket: null,
+      fromRouter: ''
     }
   },
   beforeRouteEnter (to, from, next) {
-    next(vm => vm.getData())
+    next(vm => {
+      vm.getData()
+      vm.fromRouter = from.path
+    })
   },
 
   mounted () {
@@ -228,7 +232,13 @@ export default {
         .then((res) => {
           console.log(res.data)
         })
-      this.$router.back() // 返回上一级
+      if (this.fromRouter === '/chat') {
+        this.$router.back() // 返回上一级
+      } else {
+        this.$router.push({
+          path: '/addressDetail', query: {user: this.$route.query.user}
+        })
+      }
     },
     send () {
       this.text = this.$refs.sTest.value

@@ -55,7 +55,9 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    next(vm => vm.setData())
+    next(vm => {
+      vm.setData()
+    })
   },
 
   methods: {
@@ -66,7 +68,9 @@ export default {
       console.log('1')
     },
     back () {
-      this.$router.back() // 返回上一级
+      this.$router.push({
+        path: '/address'
+      })
     },
     gotoChatroom: function () {
       // console.log(user.chatName)
