@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+后台和数据库在“back-end”分支里。
+
 ## Build Setup
 
 ``` bash
