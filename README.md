@@ -3,6 +3,7 @@
 > A Vue.js project
 
 后台和数据库在“back-end”分支里。
+数据库名“wechat”,字符集“utf8 -- UTF-8 Unicode”，排序规则“utf8_general_ci”
 
 ## Build Setup
 
