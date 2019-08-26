@@ -79,6 +79,7 @@
 <script scroped>
 import axios from 'axios'
 export default {
+  inject: ['wsOnMessage'],
   data () {
     return {
       clickAdd: '',
@@ -97,6 +98,9 @@ export default {
       vm.getData()
       vm.fromRouter = from.path
     })
+  },
+  beforeDestroy () {
+    this.socket.ws.onmessage = this.wsOnMessage
   },
 
   mounted () {
@@ -231,14 +235,16 @@ export default {
       axios.post('/apis/setunread', {user_id: this.$store.state.id, friend_id: this.chatid})
         .then((res) => {
           console.log(res.data)
+          if (this.fromRouter === '/addressDetail') {
+            this.$router.push({
+              path: '/addressDetail', query: {user: this.$route.query.user}
+            })
+          } else {
+            this.$router.push({
+              path: '/chat'
+            })
+          }
         })
-      if (this.fromRouter === '/chat') {
-        this.$router.back() // 返回上一级
-      } else {
-        this.$router.push({
-          path: '/addressDetail', query: {user: this.$route.query.user}
-        })
-      }
     },
     send () {
       this.text = this.$refs.sTest.value

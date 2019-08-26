@@ -83,7 +83,39 @@ export default {
       showNewMsg: ''
     }
   },
+  provide () {
+    return {
+      wsOnMessage: this.wsOnMessage,
+      closeWebSocket: this.closeWebSocket
+    }
+  },
   methods: {
+    wsOnMessage: function (event) {
+      console.log('收到服务器内容', event)
+      var a = JSON.parse(event.data)
+      axios.get('/apis/newMsg', {params: {chat_id: a.fromId}})
+        .then((res) => {
+          console.log(res.data)
+          this.newMsg.push({
+            chatId: a.fromId,
+            chatName: res.data.data.chatName,
+            imgurl: res.data.data.imgurl,
+            type: a.type,
+            content: a.content
+          })
+          this.showNewMsg = 1
+          if (this.showNewMsg) {
+            console.log('setTimeout', this.showNewMsg)
+            setTimeout(() => {
+              this.showNewMsg = 0
+            }, 5000)
+            // setTimeout(function () {
+            //   this.showNewMsg = 0
+            // }, 5000)
+          }
+          console.log('newMsg: ', this.newMsg)
+        })
+    },
     userNummber: function (data) {
       var result = []
       for (var i = 0; i < data.length; i++) {
@@ -111,7 +143,7 @@ export default {
     gotoWebSocket () {
       let that = this
       if ('WebSocket' in window) {
-        console.log('您的浏览器支持 WebSocket!')
+        // console.log('您的浏览器支持 WebSocket!')
         if (this.$store.state.token) {
           that.ws = new WebSocket('ws://localhost:8080/webSocket/' + this.$store.state.id)
           that.socket.setWs(that.ws)
@@ -124,30 +156,9 @@ export default {
               that.gotoWebSocket()
             }, 2000)
           }
-          that.ws.onmessage = function (event) {
-            console.log('收到服务器内容', event)
-            var a = JSON.parse(event.data)
-            axios.get('/apis/newMsg', {params: {chat_id: a.fromId}})
-              .then((res) => {
-                console.log(res.data)
-                that.newMsg.push({
-                  chatId: a.fromId,
-                  chatName: res.data.data.chatName,
-                  imgurl: res.data.data.imgurl,
-                  type: a.type,
-                  content: a.content
-                })
-                that.showNewMsg = 1
-                if (that.showNewMsg) {
-                  setTimeout(function () {
-                    that.showNewMsg = ''
-                  }, 5000)
-                }
-                console.log('that.newMsg: ', that.newMsg)
-              })
-          }
+          that.ws.onmessage = this.wsOnMessage
         } else {
-          console.log('当前无用户')
+          // console.log('当前无用户')
           setTimeout(() => {
             that.gotoWebSocket()
           }, 2000)
