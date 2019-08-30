@@ -49,6 +49,7 @@
 import Myinfo from './myinfo.vue'
 // import axios from 'axios'
 export default {
+  inject: ['closeWebSocket'],
   components: {
     Myinfo
   },
@@ -63,6 +64,10 @@ export default {
   //       }
   //     })
   // },
+  // beforeDestroy () {
+  //   console.log('this.closeWebSocket()')
+  //   this.closeWebSocket()
+  // },
   methods: {
     gotoMyinfo () {
       this.$router.push({
@@ -74,6 +79,7 @@ export default {
       console.log('退出登录')
       this.$store.commit('SET_TOKEN', '')
       this.$store.commit('SET_NAME', '')
+      this.closeWebSocket()
       this.$router.push({
         path: '/login'
       })

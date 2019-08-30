@@ -22,13 +22,16 @@
             <img class="album" src="../../assets/相册3.png" height="40" width="40"/>
           </div>
           <div class="more">更多信息</div>
-          <div class="sendmsg" @click="gotoChatroom">
+          <div class="sendmsg" @click="gotoChatroom" v-if="isFriend()">
             <img class="" src="../../assets/发消息.png" height="20" width="20"/>
             <p>发消息</p>
           </div>
-          <div class="sendmsg">
+          <div class="sendmsg" v-if="isFriend()">
             <img class="" src="../../assets/视频通话.png" height="30" width="30"/>
             <p>音视频通话</p>
+          </div>
+          <div class="sendmsg" v-if="!isFriend()" @click="addFriend">
+            <p>添加到通讯录</p>
           </div>
         </div>
     </div>
@@ -36,17 +39,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+import axios from 'axios'
 export default {
-  // props: {
-  //   name: {
-  //     type: String,
-  //     default: ''
-  //   },
-  //   chatid: {
-  //     type: String,
-  //     default: ''
-  //   }
-  // },
   data () {
     return {
       name: '',
@@ -61,11 +55,20 @@ export default {
   },
 
   methods: {
+    isFriend () {
+      var a = JSON.parse(this.$store.state.address)
+      var b = 0
+      for (var i = 0; i < a.length; i++) {
+        if (a[i].chatId === this.chatid) {
+          b = 1
+        }
+      }
+      return b
+    },
     setData () {
       this.name = this.$route.query.user.chatName
       this.chatid = this.$route.query.user.chatId
       this.imgurl = this.$route.query.user.imgurl
-      console.log('1')
     },
     back () {
       this.$router.push({
@@ -78,6 +81,16 @@ export default {
         path: '/chatroom', query: {user: this.$route.query.user}
       })
     },
+    addFriend () {
+      axios.get('/apis/addFriend', {params: {chat_id: this.$store.state.id, newFriend_id: this.chatid}})
+        .then((res) => {
+          if (res.data.status === 'success') {
+            console.log('ok')
+          } else {
+            console.log('not ok')
+          }
+        })
+    },
     show () {
       console.log(this.$route.query)
     }
@@ -89,7 +102,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
   .address-detail{
     position: fixed;
@@ -157,6 +170,7 @@ export default {
     margin-left: 20px;
   }
   .sendmsg{
+    height: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
     display: flex;

@@ -25,7 +25,7 @@
                 <div style="font-size:14px">
                   <p style="padding-bottom:4px">{{user.chatName}}</p>
                   <span >[{{newMsg.length}}条]{{user.chatName}}: </span>
-                  <span class="userinfo" v-show="user.content">{{user.content}}</span>
+                  <span class="userinfo" v-show="user.content" v-html="user.content.replace(/\#[\u4E00-\u9FA5]{1,3}\;/gi, emotion)"></span>
                   <span class="userinfo" v-show="user.type==='img'">[图片]</span>
                 </div>
                 <img :src="user.imgurl" height="40" width="40" >
@@ -67,54 +67,103 @@
             </router-link>
         </div>
       </div>
+      <!-- <toast v-model="toaststatus" type="text" :time="1500" is-show-mask :text="toastmsg" position="top"></toast> -->
+      <!-- <toast is-show-mask v-model="toaststatus" type="text" :time="1500" is-show-mask :text="toastText" :position="position"></toast> -->
 
     </div>
 </template>
 
-<script>
+<script >
 import axios from 'axios'
+// import {Toast} from 'vux'
+// import { Toast } from 'vant'
 export default {
+  // components: { Toast },
   created () {
     this.gotoWebSocket()
   },
   data () {
     return {
+      timeoutObj: null,
+      timeoutReconnect: null,
       newMsg: [],
-      showNewMsg: ''
+      showNewMsg: '',
+      toaststatus: false,
+      tosatmsg: '你好!'
     }
   },
   provide () {
     return {
       wsOnMessage: this.wsOnMessage,
-      closeWebSocket: this.closeWebSocket
+      closeWebSocket: this.closeWebSocket,
+      emotion: this.emotion,
+      resetTimers: this.resetTimers
     }
   },
   methods: {
+    // 将表情字符匹配结果替换表情图片
+    emotion (res) {
+      let word = res.replace(/#|;/gi, '')
+      const list = ['微笑', '撇嘴', '色', '发呆', '得意', '流泪', '害羞', '闭嘴', '睡', '大哭', '尴尬', '发怒', '调皮', '呲牙', '惊讶', '难过', '酷', '冷汗', '抓狂', '吐', '偷笑', '可爱', '白眼', '傲慢', '饥饿', '困', '惊恐', '流汗', '憨笑', '大兵', '奋斗', '咒骂', '疑问', '嘘', '晕', '折磨', '衰', '骷髅', '敲打', '再见', '擦汗', '抠鼻', '鼓掌', '糗大了', '坏笑', '左哼哼', '右哼哼', '哈欠', '鄙视', '委屈', '快哭了', '阴险', '亲亲', '吓', '可怜', '菜刀', '西瓜', '啤酒', '篮球', '乒乓', '咖啡', '饭', '猪头', '玫瑰', '凋谢', '示爱', '爱心', '心碎', '蛋糕', '闪电', '炸弹', '刀', '足球', '瓢虫', '便便', '月亮', '太阳', '礼物', '拥抱', '强', '弱', '握手', '胜利', '抱拳', '勾引', '拳头', '差劲', '爱你', 'NO', 'OK', '爱情', '飞吻', '跳跳', '发抖', '怄火', '转圈', '磕头', '回头', '跳绳', '挥手', '激动', '街舞', '献吻', '左太极', '右太极']
+      let index = list.indexOf(word)
+      return `<img src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/${index}.gif" align="center" height="22" width="22">`
+    },
+    startTimers: function () {
+      var self = this
+      this.timeoutObj = setTimeout(function () {
+        self.socket.ws.send('HeartBeat')
+      }, 2000)
+    },
+    resetTimers: function () {
+      clearTimeout(this.timeoutObj)
+      this.startTimers()
+    },
+    openWebSocket () {
+      console.log('WebSocket连接成功，状态码：' + this.ws.readyState)
+      this.resetTimers()
+    },
+    closeWebSocket () {
+      this.socket.ws.close()
+    },
+    oncloseWebSocket () {
+      // Toast('WebSocket连接关闭')
+      console.log('连接已关闭...')
+      this.toaststatus = true
+      this.toastmsg = '读取数据失败,请检查您的网络！'
+      this.timeoutReconnect = setTimeout(function () {
+        this.gotoWebSocket()
+      }, 2000)
+    },
     wsOnMessage: function (event) {
-      console.log('收到服务器内容', event)
-      var a = JSON.parse(event.data)
-      axios.get('/apis/newMsg', {params: {chat_id: a.fromId}})
-        .then((res) => {
-          console.log(res.data)
-          this.newMsg.push({
-            chatId: a.fromId,
-            chatName: res.data.data.chatName,
-            imgurl: res.data.data.imgurl,
-            type: a.type,
-            content: a.content
+      this.resetTimers()
+      if (event.data === 'HeartBeat received.') {
+        console.log('===== HeartBeat received. ====== bom,bom,bom!')
+      } else {
+        console.log('收到服务器内容', event)
+        var a = JSON.parse(event.data)
+        axios.get('/apis/newMsg', {params: {chat_id: a.fromId}})
+          .then((res) => {
+            console.log(res.data)
+            this.newMsg.push({
+              chatId: a.fromId,
+              chatName: res.data.data.chatName,
+              imgurl: res.data.data.imgurl,
+              type: a.type,
+              content: a.content
+            })
+            this.showNewMsg = 1
+            if (this.showNewMsg) {
+              console.log('setTimeout', this.showNewMsg)
+              setTimeout(() => {
+                this.showNewMsg = 0
+              }, 5000)
+              // setTimeout(function () {
+              //   this.showNewMsg = 0
+              // }, 5000)
+            }
+            console.log('newMsg: ', this.newMsg)
           })
-          this.showNewMsg = 1
-          if (this.showNewMsg) {
-            console.log('setTimeout', this.showNewMsg)
-            setTimeout(() => {
-              this.showNewMsg = 0
-            }, 5000)
-            // setTimeout(function () {
-            //   this.showNewMsg = 0
-            // }, 5000)
-          }
-          console.log('newMsg: ', this.newMsg)
-        })
+      }
     },
     userNummber: function (data) {
       var result = []
@@ -143,19 +192,16 @@ export default {
     gotoWebSocket () {
       let that = this
       if ('WebSocket' in window) {
-        // console.log('您的浏览器支持 WebSocket!')
+        console.log('您的浏览器支持 WebSocket!')
+        // Toast({
+        //   message: '今日签到+3'
+        // })
+        // Toast('您的浏览器支持 WebSocket!')
         if (this.$store.state.token) {
           that.ws = new WebSocket('ws://localhost:8080/webSocket/' + this.$store.state.id)
           that.socket.setWs(that.ws)
-          that.ws.onopen = function () {
-            console.log('WebSocket连接成功，状态码：' + that.ws.readyState)
-          }
-          that.ws.onclose = function () {
-            console.log('连接已关闭...')
-            setTimeout(() => {
-              that.gotoWebSocket()
-            }, 2000)
-          }
+          that.ws.onopen = this.openWebSocket
+          that.ws.onclose = this.oncloseWebSocket
           that.ws.onmessage = this.wsOnMessage
         } else {
           // console.log('当前无用户')
@@ -171,7 +217,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 ul, li, p, div{
   margin: 0;
   padding: 0;

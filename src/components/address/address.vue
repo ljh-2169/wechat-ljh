@@ -13,9 +13,10 @@
 
       <div class="top">
         <div class="top-cell">
-            <div class="new-friend" @click="newFriend">
+            <div class="new-friend" @click="gotoAddFriends">
                 <img src="../../assets/address/新的朋友.png" />
                 <span>新的朋友</span>
+                <span class="unread" v-html="newFriendsUnread" v-show="newFriendsUnread"></span>
             </div>
             <div class="new-friend" @click="warn">
                 <img src="../../assets/address/群聊.png" />
@@ -56,42 +57,51 @@
       </div>
 
     </div>
-
+    <!-- <toast v-model="toaststatus" type="text" :time="1500" is-show-mask :text="toastmsg" position="top"></toast> -->
   </div>
 
 </template>
 
 <script type="text/ecmascript-6">
 import axios from 'axios'
+import { Toast } from 'vant'
+// import {Toast} from 'vux'
 import AddressDetail from './address-detail.vue'
 export default {
   mounted () {
     axios.get('/apis/address', {params: {chat_id: this.$store.state.id}})
       .then((res) => {
-        console.log(res)
+        this.newFriendsUnread = res.data.unread
         for (let i = 0; i < res.data.data.length; i++) {
           this.address_list.push(res.data.data[i])
         }
         this.address_number = res.data.data.length
-        console.log(this.address_list)
+        this.$store.commit('SET_ADDRESS', JSON.stringify(this.address_list))
       })
+      // .catch((error) => {
+      //   this.$root.toast = {status: true, time: 1500, type: 'warn', msg: '读取数据失败,请检查您的网络！', width: '7.6rem'}
+      //   console.log('error:', error)
+      // })
   },
   components: {
-    AddressDetail
+    AddressDetail, Toast
   },
   methods: {
-    newFriend () {
+    gotoAddFriends () {
+      this.$router.push({
+        path: '/addFriends'
+      })
     },
     warn () {
-      console.log('3')
+      this.toaststatus = true
+      this.toastmsg = '读取数据失败,请检查您的网络！'
+      this.$toast('WebSocket连接关闭')
+      console.log('click...')
     },
     gotoDetail: function (user) {
-      console.log(user.name)
       this.$router.push({
         path: '/addressDetail', query: {user: user}
       })
-      // this.setAddress(user)
-      console.log(user.chat_id)
     },
     filterIndex: function (data) {
       var result = []
@@ -125,8 +135,11 @@ export default {
   },
   data () {
     return {
+      toaststatus: false,
+      tosatmsg: '你好!',
       address_number: '',
-      address_list: []
+      address_list: [],
+      newFriendsUnread: ''
     }
   }
 }
@@ -214,6 +227,19 @@ export default {
     font-size: 14px;
     text-align: center;
     padding: 8px;
+  }
+  .unread{
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #fff;
+    height: 14px;
+    width: 14px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 50%;
   }
 
 </style>

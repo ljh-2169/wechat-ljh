@@ -16,7 +16,7 @@
               <li v-for="item in chatroom_list" :key="item.id" style="background-color: #ebebeb">
                 <div :class="item.fromId===$store.state.id? 'mytalk' : 'yourtalk'">
                   <img class="userPhoto" :src="item.fromId===$store.state.id? $store.state.imgurl : imgurl" />
-                  <span v-if="item.content">{{item.content}}</span>
+                  <span v-if="item.content" v-html="item.content.replace(/\#[\u4E00-\u9FA5]{1,3}\;/gi, emotion)"></span>
                   <img :src="item.imgurl" v-if="item.imgurl" :class="item.imgtype">
                 </div>
               </li>
@@ -28,8 +28,8 @@
           <div class="send-item">
             <img src="../../assets/chatroom/语音.png" height="30" width="30"/>
             <input class="inputbox" type="text" ref="sTest" @keyup.enter="send" v-model="msg"/>
-            <img src="../../assets/chatroom/表情.png" height="26.5" width="26.5"/>
-            <img src="../../assets/chatroom/添加.png" height="30" width="30" v-if="!msg" @click="showMore"/>
+            <img src="../../assets/chatroom/表情.png" height="26.5" width="26.5" @click="showEmotion"/>
+            <img src="../../assets/chatroom/添加.png" height="30" width="30" v-if="!msg" @click="showAdd"/>
             <input class="sendButton" type="button" value="发送" @click="send" v-if="msg" :style="{background: msg == '' ? 'grey' : '#44be44' }"/>
           </div>
           <div class="send-add" ref="sendAdd" v-show="clickAdd">
@@ -71,6 +71,13 @@
               </div>
             </div>
           </div>
+
+          <div class="send-add" v-show="clickEmotion">
+            <div >
+              <emotion @emotion="handleEmotion" :height="150" ></emotion>
+            </div>
+          </div>
+
       </div>
     </div>
 
@@ -78,11 +85,16 @@
 
 <script scroped>
 import axios from 'axios'
+import Emotion from '@/components/Emotion/index.vue'
 export default {
-  inject: ['wsOnMessage'],
+  inject: ['wsOnMessage', 'emotion', 'resetTimers'],
+  components: {
+    Emotion
+  },
   data () {
     return {
       clickAdd: '',
+      clickEmotion: '',
       msg: '',
       name: '',
       chatid: '',
@@ -107,22 +119,27 @@ export default {
     this.scrollToBottom()
     let that = this
     that.socket.ws.onmessage = function (res) {
-      console.log('收到服务器内容', res)
-      var a = JSON.parse(res.data)
-      if (a.fromId === that.chatid) {
-        that.chatroom_list.push({
-          fromId: a.fromId,
-          toId: a.toId,
-          type: a.type,
-          content: a.content,
-          imgurl: a.imgurl,
-          imgtype: a.imgtype
-        })
-        console.log('that.chatroom_list', that.chatroom_list[that.chatroom_list.length - 1])
+      that.resetTimers()
+      if (event.data === 'HeartBeat received.') {
+        console.log('===== HeartBeat received. ====== bom,bom,bom!')
       } else {
-        console.log('a.fromId: ', a.fromId)
-        console.log('this.chatid:', that.chatid)
-        console.log('a.fromId != this.chatid')
+        console.log('收到服务器内容', res)
+        var a = JSON.parse(res.data)
+        if (a.fromId === that.chatid) {
+          that.chatroom_list.push({
+            fromId: a.fromId,
+            toId: a.toId,
+            type: a.type,
+            content: a.content,
+            imgurl: a.imgurl,
+            imgtype: a.imgtype
+          })
+          console.log('that.chatroom_list', that.chatroom_list[that.chatroom_list.length - 1])
+        } else {
+          console.log('a.fromId: ', a.fromId)
+          console.log('this.chatid:', that.chatid)
+          console.log('a.fromId != this.chatid')
+        }
       }
     }
   },
@@ -131,6 +148,10 @@ export default {
   },
 
   methods: {
+    handleEmotion (i) {
+      this.msg += i
+      // this.msg = this.msg.replace(/#[\u4E00-\u9FA5]{1,3};/gi, emotion)
+    },
     handdleMsg (msg) {
       let that = this
       console.log(that.socket.ws)
@@ -185,15 +206,29 @@ export default {
         })
       document.getElementById('input').value = null
     },
-    showMore () {
-      this.clickAdd = 1
-      // let height = this.$refs.sendAdd.offsetHeight
-      // console.log(height)
-      document.getElementById('content-talk').style.paddingBottom = '250px'
+    showEmotion () {
+      this.clickEmotion = !this.clickEmotion
+      this.clickAdd = 0
+      if (this.clickEmotion) {
+        document.getElementById('content-talk').style.paddingBottom = '250px'
+      } else {
+        document.getElementById('content-talk').style.paddingBottom = '100px'
+      }
+      this.scrollToBottom()
+    },
+    showAdd () {
+      this.clickAdd = !this.clickAdd
+      this.clickEmotion = 0
+      if (this.clickAdd) {
+        document.getElementById('content-talk').style.paddingBottom = '250px'
+      } else {
+        document.getElementById('content-talk').style.paddingBottom = '100px'
+      }
       this.scrollToBottom()
     },
     unshowMore () {
       this.clickAdd = 0
+      this.clickEmotion = 0
       console.log('unshowMore')
       document.getElementById('content-talk').style.paddingBottom = '100px'
     },
@@ -348,7 +383,11 @@ export default {
     padding: 10px;
     max-width: 182px;
     background: #5feb5f;
+    /* display: flex; */
+    align-items: center;
     border-radius: 4px;
+    word-wrap: break-word;
+    /* display: block; */
   }
   .yourtalk{
     display: flex;
@@ -359,8 +398,11 @@ export default {
     padding: 10px;
     max-width: 182px;
     background: white;
-    vertical-align:bottom;
+    /* display: flex; */
+    align-items: center;
     border-radius: 4px;
+    word-wrap: break-word;
+    /* display: block; */
   }
   .userPhoto{
     margin: 0px 10px;

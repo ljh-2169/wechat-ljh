@@ -11,6 +11,7 @@ export default new Vuex.Store({
     imgurl: window.sessionStorage.getItem('imgurl'),
     // photo: window.sessionStorage.getItem('photo'),
     token: window.sessionStorage.getItem('token'),
+    address: window.sessionStorage.getItem('address'),
     newMsg: window.sessionStorage.getItem('newMsg')
   },
   mutations: {
@@ -33,6 +34,10 @@ export default new Vuex.Store({
     SET_IMGURL: (state, data) => {
       state.imgurl = data
       window.sessionStorage.setItem('imgurl', data)
+    },
+    SET_ADDRESS: (state, data) => {
+      state.address = data
+      window.sessionStorage.setItem('address', data)
     },
     ALTER_NAME: (state, data) => {
       axios.post('/apis/alterName', {chat_id: state.id, newname: data})

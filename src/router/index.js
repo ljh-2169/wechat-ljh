@@ -8,6 +8,7 @@ import AlterName from '../components/me/alterName.vue'
 import AlterPhoto from '../components/me/alterPhoto.vue'
 import Address from '../components/address/address.vue'
 import AddressDetail from '../components/address/address-detail.vue'
+import AddFriends from '../components/address/addFriends.vue'
 import Chat from '../components/chat/chat.vue'
 import Chatroom from '../components/chat/chatroom.vue'
 import Login from '../components/login.vue'
@@ -49,6 +50,10 @@ export default new VueRouter({
     {
       path: '/addressDetail',
       component: AddressDetail
+    },
+    {
+      path: '/addFriends',
+      component: AddFriends
     },
     {
       path: '/me',

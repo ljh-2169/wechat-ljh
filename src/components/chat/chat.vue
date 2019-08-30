@@ -14,7 +14,7 @@
         <img class="findicon" src="../../assets/chat/发起群聊.png" />
         <span>发起群聊</span>
       </div>
-      <div class="list">
+      <div class="list" @click="gotoAddFriends">
         <img class="findicon" src="../../assets/chat/添加好友.png" />
         <span>添加朋友</span>
       </div>
@@ -44,7 +44,7 @@
               <span class="chatTime">{{user.time|dateformat('YYYY-MM-DD HH:mm:ss')}}</span>
             </div>
             <!-- <p class="username">{{user.chatName}}</p> -->
-            <p class="userinfo" v-show="user.content">{{user.content}}</p>
+            <p class="userinfo" v-if="user.content" v-html="user.content.replace(/\#[\u4E00-\u9FA5]{1,3}\;/gi, emotion)"></p>
             <p class="userinfo" v-show="user.type==='img'">[图片]</p>
           </div>
         </div>
@@ -57,6 +57,7 @@
 <script type="text/ecmascript-6">
 import axios from 'axios'
 export default {
+  inject: ['emotion'],
   mounted () {
     axios.get('/apis/chat_list', {params: {chat_id: this.$store.state.id}})
       .then((res) => {
@@ -81,6 +82,11 @@ export default {
     unshowSendButton () {
       console.log('onfocus')
       document.getElementsByTagName('input')[0].style.background = 'white'
+    },
+    gotoAddFriends () {
+      this.$router.push({
+        path: '/addFriends'
+      })
     },
     gotoChatroom: function (user) {
       console.log(user.chatName)
@@ -134,6 +140,7 @@ export default {
     border-bottom: 0.003mm solid #ebebeb;
   }
   .chatlist{
+    height: 44px;
     margin-top: 0px;
     padding: 10px 10px;
     align-items: center;
@@ -154,6 +161,12 @@ export default {
     font-size: 14px;
     padding-left: 20px;
     color: #91989e;
+    max-width: 200px;
+    /* height: 20px; */
+    white-space: nowrap;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
   }
   .chatTime{
     position: fixed;

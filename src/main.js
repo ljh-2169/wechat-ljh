@@ -8,8 +8,10 @@ import VueResource from 'vue-resource'
 import axios from 'axios'
 import moment from 'moment'
 import socket from './socket.js'
+import Vant from 'vant'
 
 Vue.use(VueRouter)
+Vue.use(Vant)
 Vue.use(VueScroller)
 Vue.use(VueResource)
 Vue.prototype.socket = socket
@@ -80,7 +82,6 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
     next()
   } else {
-    console.log('是否登录', store.state.token)
     if (store.state.token) {
       next()
     } else {
