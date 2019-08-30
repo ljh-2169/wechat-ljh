@@ -5,6 +5,7 @@ import java.util.List;
 //import com.mycompany.myapp.pojo.Chatlist;
 //import com.mycompany.myapp.pojo.Chatroom;
 import com.mycompany.myapp.pojo.Message;
+import com.mycompany.myapp.pojo.NewFriends;
 import com.mycompany.myapp.pojo.Address;
 
 public interface IDataService {
@@ -17,6 +18,8 @@ public interface IDataService {
 	
 //	public int insertChatroom(Chatroom record);
 	
+	public int insertNewFriend(NewFriends newFriend);
+	
 	public int insertMessage(Message record);
 	
 	public int updateMessageUnread(Integer unread, String user_id, String friend_id);
@@ -24,6 +27,8 @@ public interface IDataService {
 	public List<String> getFriendId(String user_id);
 	
 	public List<Address> getAddressById(String user_id);
+	
+	public Integer getNewFriendsUnread(String user_id);
 }
 
 

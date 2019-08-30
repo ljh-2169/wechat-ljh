@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.myapp.dao.NewFriendsMapper">
+  <resultMap id="BaseResultMap" type="com.mycompany.myapp.pojo.NewFriends">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="newFriend_id" jdbcType="VARCHAR" property="newfriendId" />
+    <result column="unread" jdbcType="INTEGER" property="unread" />
+  </resultMap>
+  
+  <resultMap id="UnreadMap" type="com.mycompany.myapp.pojo.NewFriends">
+    <result column="unread" jdbcType="INTEGER" property="unread" />
+  </resultMap>
+  
+  <select id="selectUnread" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select sum(unread)
+		from newfriends
+		where newFriend_id = #{user_id,jdbcType=VARCHAR} 
+  </select>
+  
+  <insert id="insert" parameterType="com.mycompany.myapp.pojo.NewFriends">
+    insert into newfriends (id, user_id, newFriend_id, 
+      unread)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{newfriendId,jdbcType=VARCHAR}, 
+      #{unread,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mycompany.myapp.pojo.NewFriends">
+    insert into newfriends
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="newfriendId != null">
+        newFriend_id,
+      </if>
+      <if test="unread != null">
+        unread,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="newfriendId != null">
+        #{newfriendId,jdbcType=VARCHAR},
+      </if>
+      <if test="unread != null">
+        #{unread,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

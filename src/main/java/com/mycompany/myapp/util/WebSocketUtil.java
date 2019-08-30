@@ -67,14 +67,26 @@ public class WebSocketUtil{
      * @param message 客户端发送过来的消息*/
     @OnMessage
     public void onMessage(String message, Session session) {
-        System.out.println("来自客户端的消息:" + message);
-        JSONObject jsonObject = JSONObject.parseObject(message);
-        String toId = jsonObject.getString("toId");
-        //发送消息
-        try {
-        	sendtoUser(message,toId);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(message.equals("HeartBeat")) {
+//      	    System.out.println("=========================== HeartBeat ========================== bom,bom,bom!");
+      	    try {
+      		    //发送给自己
+      	    	this.session.getBasicRemote().sendText("HeartBeat received.");
+  	        }
+      	    catch(Exception e) {
+  	    	    e.printStackTrace();
+  	        }
+        }
+        else {
+            //发送消息
+        	System.out.println("来自客户端的消息:" + message);
+        	JSONObject jsonObject = JSONObject.parseObject(message);
+            String toId = jsonObject.getString("toId");
+            try {
+          	  sendtoUser(message,toId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

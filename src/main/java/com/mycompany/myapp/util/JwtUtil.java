@@ -13,7 +13,7 @@ public class JwtUtil {
         Date iatDate = new Date();
         System.out.println("token签发过期时间:" + iatDate);
         Calendar nowTime = Calendar.getInstance();
-        nowTime.add(Calendar.MINUTE, 20);
+        nowTime.add(Calendar.MINUTE, 60);
         Date expiresDate = nowTime.getTime();
         System.out.println("token过期时间:" + expiresDate);
 

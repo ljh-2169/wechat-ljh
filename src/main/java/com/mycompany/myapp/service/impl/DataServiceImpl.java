@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 //import com.mycompany.myapp.dao.ChatlistMapper;
 //import com.mycompany.myapp.dao.ChatroomMapper;
 import com.mycompany.myapp.dao.MessageMapper;
+import com.mycompany.myapp.dao.NewFriendsMapper;
 import com.mycompany.myapp.dao.AddressMapper;
 
 //import com.mycompany.myapp.pojo.Chatlist;
 //import com.mycompany.myapp.pojo.Chatroom;
 import com.mycompany.myapp.pojo.Message;
+import com.mycompany.myapp.pojo.NewFriends;
 import com.mycompany.myapp.pojo.Address;
 
 import com.mycompany.myapp.service.IDataService;
@@ -38,6 +40,10 @@ public class DataServiceImpl implements IDataService {
 	
 	@Resource
 	private AddressMapper addressMapper;
+	
+	@Resource
+	private NewFriendsMapper newFriendsMapper;
+
 
 //	@Override
 //	public List<Chatlist> getChatlist() {
@@ -66,6 +72,11 @@ public class DataServiceImpl implements IDataService {
 	}
 	
 	@Override
+	public int insertNewFriend(NewFriends newFriend) {
+		return newFriendsMapper.insertSelective(newFriend);
+	}
+	
+	@Override
 	public int updateMessageUnread(Integer unread, String user_id, String friend_id) {
 		return messageMapper.updateMessageUnread(unread,user_id,friend_id);
 	}
@@ -78,5 +89,10 @@ public class DataServiceImpl implements IDataService {
 	@Override
 	public List<Address> getAddressById(String user_id){
 		return addressMapper.selectAddressById(user_id);
+	}
+	
+	@Override
+	public Integer getNewFriendsUnread(String user_id) {
+		return newFriendsMapper.selectUnread(user_id);
 	}
 }

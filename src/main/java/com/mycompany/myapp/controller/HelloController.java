@@ -32,6 +32,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.mycompany.myapp.pojo.ChatList;
 //import com.mycompany.myapp.pojo.Chatroom;
 import com.mycompany.myapp.pojo.Message;
+import com.mycompany.myapp.pojo.NewFriends;
 import com.mycompany.myapp.pojo.User;
 import com.mycompany.myapp.pojo.Address;
 
@@ -213,34 +214,57 @@ public class HelloController {
     
     @RequestMapping(value ="/address",method = RequestMethod.GET)
     public String address(HttpServletRequest request, HttpServletResponse response){
-//    	String token = request.getHeader("token");
-//    	JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("123")).build();
-//        try {
-//            jwtVerifier.verify(token);
-//        } catch (JWTVerificationException e) {
-//            throw new RuntimeException("401");
-//        }
     	String user_id = request.getParameter("chat_id");
+    	Integer unread = dataService.getNewFriendsUnread(user_id);
     	List<User> friends = userService.getUserById(user_id);
     	JSONObject rspJson = new JSONObject();
     	rspJson.put("data", friends);
+    	rspJson.put("unread", unread);
     	return rspJson.toJSONString();
     }
     
-    @RequestMapping(value ="/alterName",method = RequestMethod.POST)
+    @RequestMapping(value ="/searchUser",method = RequestMethod.GET)
+    public String searchUser(HttpServletRequest request, HttpServletResponse response){
+    	String newFriend_id = request.getParameter("newFriend_id");
+    	User user = userService.findUserByChatId(newFriend_id);
+    	JSONObject rspJson = new JSONObject();
+    	if(user!=null) {
+    		rspJson.put("status", "exit");
+    		rspJson.put("data", user);
+    	}else {
+    		rspJson.put("status", "not exit");
+    	}
+    	return rspJson.toJSONString();
+    }
     
+    @RequestMapping(value ="/addFriend",method = RequestMethod.GET)
+    public String addFriend(HttpServletRequest request, HttpServletResponse response){
+    	String chat_id = request.getParameter("chat_id");
+    	String newFriend_id = request.getParameter("newFriend_id");
+    	NewFriends newFriend = new NewFriends();
+    	newFriend.setUserId(chat_id);
+    	newFriend.setNewfriendId(newFriend_id);    	
+    	JSONObject rspJson = new JSONObject();
+    	int b = dataService.insertNewFriend(newFriend);
+    	if (b == 1) {
+    		rspJson.put("status", "success");
+    	}else {
+    		rspJson.put("status", "error");
+    	}
+    	return rspJson.toJSONString();
+    }
+    
+    @RequestMapping(value ="/alterName",method = RequestMethod.POST)    
     public String alterName(@RequestBody(required = false) JSONObject jsonParam){
     	String chat_id = jsonParam.getString("chat_id");
     	String newname = jsonParam.getString("newname");
-    	JSONObject rspJson = new JSONObject();
-    	
+    	JSONObject rspJson = new JSONObject();   	
     	int i = userService.updateName(chat_id, newname);
     	if(i == 1){
     		rspJson.put("status", "sucess");
     	}else {
     		rspJson.put("status", "error");
-    	}
-    	
+    	}   	
     	return rspJson.toJSONString();
     }
     

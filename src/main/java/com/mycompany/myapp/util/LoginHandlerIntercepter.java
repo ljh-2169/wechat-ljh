@@ -68,7 +68,7 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
              	     long diff = nowdate.getTime()-lasttime.getTime();
              	     System.out.println("lasttime:" + lasttime + " nowdate:" + nowdate);
              	     System.out.println("时间差" + diff);
-             	     if(diff<60000) {
+             	     if(diff<1200000) {
             	    	String newtoken = JwtUtil.getToken(user);
 						System.out.println("newtoken:" + newtoken);
 						arg1.addHeader("newtoken", newtoken);
