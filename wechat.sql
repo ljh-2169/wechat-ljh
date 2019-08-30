@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2019-08-22 10:02:13
+Date: 2019-08-30 15:18:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,8 +65,6 @@ INSERT INTO `address` VALUES ('4', 'xiaozhupeiqi', 'banmasuyi');
 INSERT INTO `address` VALUES ('5', 'xiaozhupeiqi', 'daxiangaimili');
 INSERT INTO `address` VALUES ('6', 'xiaozhupeiqi', 'lingyangfuren');
 INSERT INTO `address` VALUES ('7', 'xiaozhupeiqi', 'lichade');
-INSERT INTO `address` VALUES ('8', 'xiaozhupeiqi', 'mama');
-INSERT INTO `address` VALUES ('9', 'xiaozhupeiqi', 'qiaozhi');
 INSERT INTO `address` VALUES ('10', 'xiaozhupeiqi', 'xiaoyangsuxi');
 INSERT INTO `address` VALUES ('11', 'xiaozhupeiqi', 'xiaogoudanni');
 INSERT INTO `address` VALUES ('12', 'xiaozhupeiqi', 'xiaoturuibeika');
@@ -114,7 +112,6 @@ INSERT INTO `address` VALUES ('62', 'baba', 'banmasuyi');
 INSERT INTO `address` VALUES ('63', 'baba', 'daxiangaimili');
 INSERT INTO `address` VALUES ('64', 'baba', 'lingyangfuren');
 INSERT INTO `address` VALUES ('65', 'baba', 'lichade');
-INSERT INTO `address` VALUES ('66', 'baba', 'mama');
 INSERT INTO `address` VALUES ('67', 'baba', 'qiaozhi');
 INSERT INTO `address` VALUES ('68', 'baba', 'xiaoyangsuxi');
 INSERT INTO `address` VALUES ('69', 'baba', 'xiaogoudanni');
@@ -162,7 +159,6 @@ INSERT INTO `address` VALUES ('122', 'mama', 'banmasuyi');
 INSERT INTO `address` VALUES ('123', 'mama', 'daxiangaimili');
 INSERT INTO `address` VALUES ('124', 'mama', 'lingyangfuren');
 INSERT INTO `address` VALUES ('125', 'mama', 'lichade');
-INSERT INTO `address` VALUES ('126', 'mama', 'xiaozhupeiqi');
 INSERT INTO `address` VALUES ('127', 'mama', 'qiaozhi');
 INSERT INTO `address` VALUES ('128', 'mama', 'xiaoyangsuxi');
 INSERT INTO `address` VALUES ('129', 'mama', 'xiaogoudanni');
@@ -326,7 +322,7 @@ CREATE TABLE `message` (
   `unread` int(10) DEFAULT '1',
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=409 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=510 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of message
@@ -521,8 +517,8 @@ INSERT INTO `message` VALUES ('381', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', '
 INSERT INTO `message` VALUES ('382', 'baba', 'xiaozhupeiqi', 'text', 'sgf', null, '0', '2019-08-19 23:14:49');
 INSERT INTO `message` VALUES ('383', 'baba', 'xiaozhupeiqi', 'text', 'srfg', null, '0', '2019-08-19 23:14:57');
 INSERT INTO `message` VALUES ('384', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'sfg', null, '0', '2019-08-19 23:15:02');
-INSERT INTO `message` VALUES ('385', 'aidemeng', 'xiaozhupeiqi', 'text', 'sfb', null, '1', '2019-08-19 23:15:11');
-INSERT INTO `message` VALUES ('386', 'aidemeng', 'xiaozhupeiqi', 'text', 'dfb', null, '1', '2019-08-19 23:15:19');
+INSERT INTO `message` VALUES ('385', 'aidemeng', 'xiaozhupeiqi', 'text', 'sfb', null, '0', '2019-08-19 23:15:11');
+INSERT INTO `message` VALUES ('386', 'aidemeng', 'xiaozhupeiqi', 'text', 'dfb', null, '0', '2019-08-19 23:15:19');
 INSERT INTO `message` VALUES ('387', 'xiaozhupeiqi', 'xiaomapeideluo', 'text', 'efv', null, '0', '2019-08-20 08:49:22');
 INSERT INTO `message` VALUES ('388', 'xiaozhupeiqi', 'baba', 'text', 'enen ', null, '0', '2019-08-20 08:55:52');
 INSERT INTO `message` VALUES ('389', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'edfvc', null, '0', '2019-08-20 08:56:50');
@@ -532,19 +528,140 @@ INSERT INTO `message` VALUES ('392', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', '
 INSERT INTO `message` VALUES ('393', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'ac', null, '0', '2019-08-20 08:57:44');
 INSERT INTO `message` VALUES ('394', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'wecd', null, '0', '2019-08-20 09:14:40');
 INSERT INTO `message` VALUES ('395', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'sd', null, '0', '2019-08-20 09:14:42');
-INSERT INTO `message` VALUES ('396', 'baba', 'xiaozhupeiqi', 'text', 'efdvc', null, '1', '2019-08-20 09:14:57');
-INSERT INTO `message` VALUES ('397', 'baba', 'xiaozhupeiqi', 'text', 'wdc', null, '1', '2019-08-20 09:15:06');
+INSERT INTO `message` VALUES ('396', 'baba', 'xiaozhupeiqi', 'text', 'efdvc', null, '0', '2019-08-20 09:14:57');
+INSERT INTO `message` VALUES ('397', 'baba', 'xiaozhupeiqi', 'text', 'wdc', null, '0', '2019-08-20 09:15:06');
 INSERT INTO `message` VALUES ('398', 'xiaozhupeiqi', 'xiaomapeideluo', 'text', '对方', null, '1', '2019-08-20 09:20:10');
 INSERT INTO `message` VALUES ('399', 'xiaozhupeiqi', 'xiaomapeideluo', 'text', '吃饭', null, '1', '2019-08-20 09:20:57');
 INSERT INTO `message` VALUES ('400', 'xiaozhupeiqi', 'xiaomapeideluo', 'text', '按时', null, '1', '2019-08-20 09:24:12');
 INSERT INTO `message` VALUES ('401', 'xiaozhupeiqi', 'xiaomapeideluo', 'text', '按时吃', null, '1', '2019-08-20 09:24:25');
-INSERT INTO `message` VALUES ('402', 'baba', 'xiaozhupeiqi', 'text', 'wef', null, '1', '2019-08-20 17:26:12');
-INSERT INTO `message` VALUES ('403', 'baba', 'xiaozhupeiqi', 'text', 'dfb', null, '1', '2019-08-20 17:26:25');
-INSERT INTO `message` VALUES ('404', 'baba', 'xiaozhupeiqi', 'text', 'sfb', null, '1', '2019-08-20 17:26:43');
-INSERT INTO `message` VALUES ('405', 'baba', 'xiaozhupeiqi', 'text', 'cb ', null, '1', '2019-08-20 17:27:05');
-INSERT INTO `message` VALUES ('406', 'baba', 'xiaozhupeiqi', 'text', 'sgds', null, '1', '2019-08-20 17:27:11');
-INSERT INTO `message` VALUES ('407', 'baba', 'xiaozhupeiqi', 'text', 'wsgdv', null, '1', '2019-08-20 17:27:56');
-INSERT INTO `message` VALUES ('408', 'baba', 'xiaozhupeiqi', 'text', 'sebdfx', null, '1', '2019-08-20 17:28:14');
+INSERT INTO `message` VALUES ('402', 'baba', 'xiaozhupeiqi', 'text', 'wef', null, '0', '2019-08-20 17:26:12');
+INSERT INTO `message` VALUES ('403', 'baba', 'xiaozhupeiqi', 'text', 'dfb', null, '0', '2019-08-20 17:26:25');
+INSERT INTO `message` VALUES ('404', 'baba', 'xiaozhupeiqi', 'text', 'sfb', null, '0', '2019-08-20 17:26:43');
+INSERT INTO `message` VALUES ('405', 'baba', 'xiaozhupeiqi', 'text', 'cb ', null, '0', '2019-08-20 17:27:05');
+INSERT INTO `message` VALUES ('406', 'baba', 'xiaozhupeiqi', 'text', 'sgds', null, '0', '2019-08-20 17:27:11');
+INSERT INTO `message` VALUES ('407', 'baba', 'xiaozhupeiqi', 'text', 'wsgdv', null, '0', '2019-08-20 17:27:56');
+INSERT INTO `message` VALUES ('408', 'baba', 'xiaozhupeiqi', 'text', 'sebdfx', null, '0', '2019-08-20 17:28:14');
+INSERT INTO `message` VALUES ('409', 'baba', 'xiaozhupeiqi', 'text', 'wsrgws', null, '0', '2019-08-23 17:30:16');
+INSERT INTO `message` VALUES ('410', 'baba', 'xiaozhupeiqi', 'text', 'sgsgs', null, '0', '2019-08-23 17:30:24');
+INSERT INTO `message` VALUES ('411', 'baba', 'xiaozhupeiqi', 'text', 'dhsh', null, '0', '2019-08-23 17:31:47');
+INSERT INTO `message` VALUES ('412', 'baba', 'xiaozhupeiqi', 'text', 'dstyhsxf', null, '0', '2019-08-23 17:31:55');
+INSERT INTO `message` VALUES ('413', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'dtghs', null, '0', '2019-08-23 17:32:17');
+INSERT INTO `message` VALUES ('414', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'xfhsfx', null, '0', '2019-08-23 17:32:28');
+INSERT INTO `message` VALUES ('415', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'dtujsx', null, '0', '2019-08-23 17:32:46');
+INSERT INTO `message` VALUES ('416', 'xiaomapeideluo', 'xiaozhupeiqi', 'text', 'dtujcx', null, '0', '2019-08-23 17:32:56');
+INSERT INTO `message` VALUES ('417', 'baba', 'xiaozhupeiqi', 'text', 'wfceds', null, '0', '2019-08-24 22:19:44');
+INSERT INTO `message` VALUES ('418', 'baba', 'xiaozhupeiqi', 'text', 'svce', null, '0', '2019-08-24 22:20:06');
+INSERT INTO `message` VALUES ('419', 'baba', 'xiaozhupeiqi', 'text', 'wc', null, '0', '2019-08-24 22:20:09');
+INSERT INTO `message` VALUES ('420', 'baba', 'xiaozhupeiqi', 'text', 'wcs', null, '0', '2019-08-24 22:20:48');
+INSERT INTO `message` VALUES ('421', 'baba', 'xiaozhupeiqi', 'text', 'sbhwe', null, '0', '2019-08-24 22:42:38');
+INSERT INTO `message` VALUES ('422', 'baba', 'xiaozhupeiqi', 'text', 'tfjc', null, '0', '2019-08-24 22:42:47');
+INSERT INTO `message` VALUES ('423', 'baba', 'xiaozhupeiqi', 'text', 'tg', null, '0', '2019-08-24 22:43:11');
+INSERT INTO `message` VALUES ('424', 'baba', 'xiaozhupeiqi', 'text', 'gyukv', null, '0', '2019-08-24 22:43:20');
+INSERT INTO `message` VALUES ('425', 'baba', 'xiaozhupeiqi', 'text', 'dghbetrh', null, '0', '2019-08-24 22:46:03');
+INSERT INTO `message` VALUES ('426', 'baba', 'xiaozhupeiqi', 'text', 'dru', null, '0', '2019-08-24 22:46:06');
+INSERT INTO `message` VALUES ('427', 'baba', 'xiaozhupeiqi', 'text', 'fyu', null, '0', '2019-08-24 22:46:12');
+INSERT INTO `message` VALUES ('428', 'baba', 'xiaozhupeiqi', 'text', 'cty', null, '0', '2019-08-24 22:46:19');
+INSERT INTO `message` VALUES ('429', 'baba', 'xiaozhupeiqi', 'text', 'dthe', null, '0', '2019-08-24 22:50:29');
+INSERT INTO `message` VALUES ('430', 'baba', 'xiaozhupeiqi', 'text', 'dry', null, '0', '2019-08-24 22:50:35');
+INSERT INTO `message` VALUES ('431', 'baba', 'xiaozhupeiqi', 'text', 'dty', null, '0', '2019-08-24 22:50:41');
+INSERT INTO `message` VALUES ('432', 'baba', 'xiaozhupeiqi', 'text', 'fxhxr', null, '0', '2019-08-24 22:50:59');
+INSERT INTO `message` VALUES ('433', 'baba', 'xiaozhupeiqi', 'text', 'cyjt', null, '0', '2019-08-24 22:51:05');
+INSERT INTO `message` VALUES ('434', 'baba', 'xiaozhupeiqi', 'text', 'adgvas', null, '0', '2019-08-25 20:05:31');
+INSERT INTO `message` VALUES ('435', 'baba', 'xiaozhupeiqi', 'text', 'sgrse', null, '0', '2019-08-25 20:05:44');
+INSERT INTO `message` VALUES ('436', 'baba', 'xiaozhupeiqi', 'text', 'gujr', null, '0', '2019-08-25 20:05:47');
+INSERT INTO `message` VALUES ('437', 'baba', 'xiaozhupeiqi', 'text', 'gyg', null, '0', '2019-08-25 20:05:57');
+INSERT INTO `message` VALUES ('438', 'baba', 'xiaozhupeiqi', 'text', 'yjfghdcg', null, '0', '2019-08-25 20:06:04');
+INSERT INTO `message` VALUES ('439', 'baba', 'xiaozhupeiqi', 'text', 'bhjb', null, '0', '2019-08-25 20:11:52');
+INSERT INTO `message` VALUES ('440', 'baba', 'xiaozhupeiqi', 'text', 'gyjg', null, '0', '2019-08-25 20:12:01');
+INSERT INTO `message` VALUES ('441', 'baba', 'xiaozhupeiqi', 'text', 'hvhvuy', null, '0', '2019-08-25 20:15:02');
+INSERT INTO `message` VALUES ('442', 'baba', 'xiaozhupeiqi', 'text', 'tyfvjh', null, '0', '2019-08-25 20:18:10');
+INSERT INTO `message` VALUES ('443', 'baba', 'xiaozhupeiqi', 'text', 'gjhyghf', null, '0', '2019-08-25 20:19:00');
+INSERT INTO `message` VALUES ('444', 'baba', 'xiaozhupeiqi', 'text', 'srge', null, '0', '2019-08-25 22:55:03');
+INSERT INTO `message` VALUES ('445', 'baba', 'xiaozhupeiqi', 'text', 'sfgbs', null, '0', '2019-08-25 23:00:34');
+INSERT INTO `message` VALUES ('446', 'baba', 'xiaozhupeiqi', 'text', 'zfbs', null, '0', '2019-08-25 23:02:29');
+INSERT INTO `message` VALUES ('447', 'baba', 'xiaozhupeiqi', 'text', 'dghe', null, '0', '2019-08-25 23:02:37');
+INSERT INTO `message` VALUES ('448', 'baba', 'xiaozhupeiqi', 'text', 'sfge', null, '0', '2019-08-25 23:07:58');
+INSERT INTO `message` VALUES ('449', 'baba', 'xiaozhupeiqi', 'text', 'xfge', null, '0', '2019-08-25 23:08:06');
+INSERT INTO `message` VALUES ('450', 'baba', 'xiaozhupeiqi', 'text', 'dthe', null, '0', '2019-08-25 23:08:13');
+INSERT INTO `message` VALUES ('451', 'baba', 'xiaozhupeiqi', 'text', 'xfbe', null, '0', '2019-08-25 23:08:19');
+INSERT INTO `message` VALUES ('452', 'baba', 'xiaozhupeiqi', 'text', 'drhge', null, '0', '2019-08-25 23:08:29');
+INSERT INTO `message` VALUES ('453', 'xiaozhupeiqi', 'baba', 'text', 'wwe', null, '0', '2019-08-26 09:03:07');
+INSERT INTO `message` VALUES ('454', 'xiaozhupeiqi', 'baba', 'text', 'scw', null, '0', '2019-08-26 09:03:15');
+INSERT INTO `message` VALUES ('455', 'xiaozhupeiqi', 'baba', 'text', 'sdc', null, '0', '2019-08-26 09:03:21');
+INSERT INTO `message` VALUES ('456', 'xiaozhupeiqi', 'baba', 'text', 'wcd', null, '0', '2019-08-26 09:03:29');
+INSERT INTO `message` VALUES ('457', 'xiaozhupeiqi', 'baba', 'img', null, '/static/messageImg/登陆背景.png', '0', '2019-08-26 09:26:15');
+INSERT INTO `message` VALUES ('458', 'baba', 'xiaozhupeiqi', 'text', '#微笑;', null, '0', '2019-08-26 10:16:22');
+INSERT INTO `message` VALUES ('459', 'baba', 'xiaozhupeiqi', 'text', '#得意;', null, '0', '2019-08-26 10:21:37');
+INSERT INTO `message` VALUES ('460', 'baba', 'xiaozhupeiqi', 'text', 'srgerg#色;', null, '0', '2019-08-26 10:21:52');
+INSERT INTO `message` VALUES ('461', 'baba', 'xiaozhupeiqi', 'text', '#呲牙;', null, '0', '2019-08-26 10:24:27');
+INSERT INTO `message` VALUES ('462', 'baba', 'xiaozhupeiqi', 'text', '#刀;', null, '0', '2019-08-26 10:25:01');
+INSERT INTO `message` VALUES ('463', 'baba', 'xiaozhupeiqi', 'text', '#炸弹;', null, '0', '2019-08-26 10:25:05');
+INSERT INTO `message` VALUES ('464', 'baba', 'xiaozhupeiqi', 'text', '#心碎;', null, '0', '2019-08-26 10:25:43');
+INSERT INTO `message` VALUES ('465', 'xiaozhupeiqi', 'baba', 'text', 'vjh#大兵;', null, '0', '2019-08-26 10:29:01');
+INSERT INTO `message` VALUES ('466', 'xiaozhupeiqi', 'baba', 'text', 'bhjb', null, '0', '2019-08-26 10:29:10');
+INSERT INTO `message` VALUES ('467', 'xiaozhupeiqi', 'baba', 'text', 'bjkb', null, '0', '2019-08-26 10:30:00');
+INSERT INTO `message` VALUES ('468', 'xiaozhupeiqi', 'baba', 'text', 'vjh#得意;', null, '0', '2019-08-26 10:30:07');
+INSERT INTO `message` VALUES ('469', 'xiaozhupeiqi', 'baba', 'text', 'vhjvgh', null, '0', '2019-08-26 10:30:26');
+INSERT INTO `message` VALUES ('470', 'xiaozhupeiqi', 'baba', 'text', 'vjhf#得意;', null, '0', '2019-08-26 10:30:30');
+INSERT INTO `message` VALUES ('471', 'baba', 'xiaozhupeiqi', 'text', 'chtdh', null, '0', '2019-08-26 10:30:50');
+INSERT INTO `message` VALUES ('472', 'baba', 'xiaozhupeiqi', 'text', '#发怒;', null, '0', '2019-08-26 10:30:55');
+INSERT INTO `message` VALUES ('473', 'xiaozhupeiqi', 'baba', 'img', null, '/static/messageImg/01.png', '0', '2019-08-26 10:34:46');
+INSERT INTO `message` VALUES ('474', 'xiaozhupeiqi', 'baba', 'img', null, '/static/messageImg/01.png', '0', '2019-08-26 10:34:59');
+INSERT INTO `message` VALUES ('475', 'xiaozhupeiqi', 'baba', 'text', '#流汗;', null, '0', '2019-08-26 10:37:13');
+INSERT INTO `message` VALUES ('476', 'xiaozhupeiqi', 'baba', 'text', '#大兵;', null, '0', '2019-08-26 10:38:52');
+INSERT INTO `message` VALUES ('477', 'xiaozhupeiqi', 'baba', 'text', 'vjhgjkhklhihkliyiuthjgkljouithghmbgkjtu', null, '0', '2019-08-26 10:53:21');
+INSERT INTO `message` VALUES ('478', 'xiaozhupeiqi', 'baba', 'text', '哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或', null, '0', '2019-08-26 10:54:13');
+INSERT INTO `message` VALUES ('479', 'xiaozhupeiqi', 'baba', 'text', '是大V深V#发怒;', null, '0', '2019-08-26 10:56:21');
+INSERT INTO `message` VALUES ('480', 'baba', 'xiaozhupeiqi', 'text', 'sfbsdeb#调皮;Srgwsv如果问', null, '0', '2019-08-26 11:08:34');
+INSERT INTO `message` VALUES ('481', 'baba', 'xiaozhupeiqi', 'text', 'sfbvv#色;shhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh', null, '0', '2019-08-26 11:09:00');
+INSERT INTO `message` VALUES ('482', 'baba', 'xiaozhupeiqi', 'text', 'cwsjcdn#得意;sv呼呼地未激活地我和服我未婚夫ID尼斯成为', null, '0', '2019-08-26 11:09:23');
+INSERT INTO `message` VALUES ('483', 'xiaozhupeiqi', 'baba', 'text', '#发怒;hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh ', null, '0', '2019-08-26 13:49:32');
+INSERT INTO `message` VALUES ('484', 'xiaozhupeiqi', 'baba', 'text', '#发怒;哈哈哈哈哈哈哈哈哈哈哈哈或或或hhhhhhhhhhhhhhhhhhhhhhh', null, '0', '2019-08-26 13:49:58');
+INSERT INTO `message` VALUES ('485', 'xiaozhupeiqi', 'baba', 'text', '哈哈哈哈哈哈哈哈哈哈或或', null, '0', '2019-08-26 14:12:06');
+INSERT INTO `message` VALUES ('486', 'xiaozhupeiqi', 'baba', 'text', '哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或或或或', null, '0', '2019-08-26 14:12:15');
+INSERT INTO `message` VALUES ('487', 'xiaozhupeiqi', 'baba', 'text', '#得意;发v是顺风耳GV', null, '0', '2019-08-26 15:09:17');
+INSERT INTO `message` VALUES ('488', 'xiaozhupeiqi', 'baba', 'text', 'er', null, '0', '2019-08-26 16:41:42');
+INSERT INTO `message` VALUES ('489', 'xiaozhupeiqi', 'baba', 'text', '#得意;', null, '0', '2019-08-26 16:41:48');
+INSERT INTO `message` VALUES ('490', 'xiaozhupeiqi', 'baba', 'text', 'sdvsv#色;srw', null, '0', '2019-08-26 16:42:31');
+INSERT INTO `message` VALUES ('491', 'xiaozhupeiqi', 'baba', 'text', '#得意;', null, '0', '2019-08-26 16:42:39');
+INSERT INTO `message` VALUES ('492', 'xiaozhupeiqi', 'baba', 'text', 'dhfs#色;', null, '0', '2019-08-26 16:44:42');
+INSERT INTO `message` VALUES ('493', 'xiaozhupeiqi', 'baba', 'text', '是发v', null, '0', '2019-08-26 17:09:20');
+INSERT INTO `message` VALUES ('494', 'xiaozhupeiqi', 'baba', 'text', '丰田还有人#憨笑;', null, '0', '2019-08-26 17:09:31');
+INSERT INTO `message` VALUES ('495', 'xiaozhupeiqi', 'baba', 'text', 'eg', null, '0', '2019-08-26 17:12:09');
+INSERT INTO `message` VALUES ('496', 'xiaozhupeiqi', 'baba', 'text', '#憨笑;', null, '0', '2019-08-26 17:12:14');
+INSERT INTO `message` VALUES ('497', 'xiaozhupeiqi', 'baba', 'text', '是发v#大兵;', null, '0', '2019-08-26 17:13:13');
+INSERT INTO `message` VALUES ('498', 'xiaozhupeiqi', 'baba', 'text', '#发呆;都挺好', null, '0', '2019-08-26 17:15:24');
+INSERT INTO `message` VALUES ('499', 'xiaozhupeiqi', 'baba', 'text', '采购部', null, '0', '2019-08-26 17:34:09');
+INSERT INTO `message` VALUES ('500', 'xiaozhupeiqi', 'baba', 'text', '发图', null, '0', '2019-08-26 17:34:23');
+INSERT INTO `message` VALUES ('501', 'baba', 'xiaozhupeiqi', 'img', null, '/static/messageImg/登陆背景.png', '0', '2019-08-26 23:30:48');
+INSERT INTO `message` VALUES ('502', 'baba', 'xiaozhupeiqi', 'text', 'fgn', null, '0', '2019-08-26 23:36:57');
+INSERT INTO `message` VALUES ('503', 'xiaozhupeiqi', 'baba', 'text', '#调皮;', null, '0', '2019-08-26 23:38:07');
+INSERT INTO `message` VALUES ('504', 'xiaozhupeiqi', 'baba', 'img', null, '/static/messageImg/01.png', '0', '2019-08-26 23:38:20');
+INSERT INTO `message` VALUES ('505', 'xiaozhupeiqi', 'baba', 'text', 'yjc', null, '0', '2019-08-26 23:38:35');
+INSERT INTO `message` VALUES ('506', 'baba', 'xiaozhupeiqi', 'img', null, '/static/messageImg/登陆背景.png', '0', '2019-08-26 23:39:43');
+INSERT INTO `message` VALUES ('507', 'xiaozhupeiqi', 'baba', 'text', '#得意;', null, '1', '2019-08-27 17:02:17');
+INSERT INTO `message` VALUES ('508', 'xiaozhupeiqi', 'baba', 'text', '#抓狂;', null, '1', '2019-08-30 11:33:55');
+INSERT INTO `message` VALUES ('509', 'xiaozhupeiqi', 'baba', 'text', 'sdf#呲牙;', null, '1', '2019-08-30 11:43:00');
+
+-- ----------------------------
+-- Table structure for `newfriends`
+-- ----------------------------
+DROP TABLE IF EXISTS `newfriends`;
+CREATE TABLE `newfriends` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(20) NOT NULL,
+  `newFriend_id` varchar(20) NOT NULL,
+  `unread` int(10) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of newfriends
+-- ----------------------------
+INSERT INTO `newfriends` VALUES ('1', 'xiaozhupeiqi', 'mama', '1');
+INSERT INTO `newfriends` VALUES ('13', 'xiaozhupeiqi', 'mama', '1');
+INSERT INTO `newfriends` VALUES ('14', 'xiaozhupeiqi', 'mama', '1');
+INSERT INTO `newfriends` VALUES ('15', 'mama', 'xiaozhupeiqi', '1');
 
 -- ----------------------------
 -- Table structure for `user_info`
